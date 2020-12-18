@@ -96,7 +96,9 @@ def decoding():
             print("not matched")    
 
 encodeFile('InputText.txt')
+ 
 decoding()        
+ 
 
 
 
