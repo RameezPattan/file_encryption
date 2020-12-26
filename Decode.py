@@ -25,8 +25,8 @@ def get3DigitCodes():
     return digitCodeData
 
 
-def setDatatoEncodedFile(filename, encoded_single_char):
-    with open(filename+'_encodedFile.txt', 'a') as encodingFile:
+def setDatatoEncodedFile(encoded_single_char):
+    with open('InputText.txt_encodedFile.txt', 'a') as encodingFile:
         encodingFile.write(encoded_single_char)
 
 def getEncodedData():
@@ -66,7 +66,7 @@ def encodeFile(filename):
                         encoded_single_char = dict_pattern.format(digit3code_singleChar[0], digit3code_singleChar[1], digit3code_singleChar[2],'1')
                     else:
                         encoded_single_char = dict_pattern.format(digit3code_singleChar[0], digit3code_singleChar[1], digit3code_singleChar[2],'0')   
-                    setDatatoEncodedFile(filename, encoded_single_char)                    
+                    setDatatoEncodedFile(encoded_single_char)                    
                 else:
                     print("char doesnot exist in patterncodes"+singleChar)            
             singleLine = inputfile.readline()
@@ -80,21 +80,17 @@ def decoding():
     dictData=decodeDictionary()
     dictKeys=list(dictData.keys())
     dictValues=list(dictData.values())
-    print(type(dictValues))
     while i<len(dataEncoded):
         string=dataEncoded[i:i+16]
         i+=16
         j=0
-        print(dictValues)
-        print(type(dictValues))
-        match=re.fullmatch(dictValues[j],string)
-        if match!=None:
-            msg=dictKeys[j]
-            with open('DecodedMessage.txt','a') as decodeMsgWritter:
-                decodeMsgWritter.write(msg)        
-        else:
-            print("not matched")    
-
+        for e in dictValues:
+            match=re.fullmatch(dictValues[j],string)
+            if match!=None:
+                msg=dictKeys[j]
+                with open('DecodedMessage.txt','a') as decodeMsgWritter:
+                    decodeMsgWritter.write(msg) 
+            j+=1
 encodeFile('InputText.txt')
  
 decoding()        
